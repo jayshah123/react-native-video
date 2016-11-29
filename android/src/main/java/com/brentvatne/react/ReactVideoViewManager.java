@@ -1,5 +1,7 @@
 package com.brentvatne.react;
 
+import android.util.Log;
+
 import com.brentvatne.react.ReactVideoView.Events;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReadableMap;
@@ -18,6 +20,9 @@ public class ReactVideoViewManager extends SimpleViewManager<ReactVideoView> {
 
     public static final String REACT_CLASS = "RCTVideo";
 
+    private static final String LOG_TAG = "ReactVideoViewManager";
+    private static final boolean DEBUG_SRC = true;
+    private static final boolean DEBUG_PLAYBACK = true;
     public static final String PROP_SRC = "src";
     public static final String PROP_SRC_URI = "uri";
     public static final String PROP_SRC_TYPE = "type";
@@ -74,6 +79,11 @@ public class ReactVideoViewManager extends SimpleViewManager<ReactVideoView> {
 
     @ReactProp(name = PROP_SRC)
     public void setSrc(final ReactVideoView videoView, @Nullable ReadableMap src) {
+        if(DEBUG_SRC) {
+            Log.d(REACT_CLASS, " setSrc , uri = " + src.getString(PROP_SRC_URI) + " type = " + src.getString(PROP_SRC_TYPE)
+                    + "  isNetwork = " + src.getBoolean(PROP_SRC_IS_NETWORK) + " isAsset = " + src.getBoolean(PROP_SRC_IS_ASSET));
+        }
+
         int mainVer = src.getInt(PROP_SRC_MAINVER);
         int patchVer = src.getInt(PROP_SRC_PATCHVER);
         if(mainVer<0) { mainVer = 0; }
@@ -110,6 +120,9 @@ public class ReactVideoViewManager extends SimpleViewManager<ReactVideoView> {
 
     @ReactProp(name = PROP_PAUSED, defaultBoolean = false)
     public void setPaused(final ReactVideoView videoView, final boolean paused) {
+        if(DEBUG_PLAYBACK){
+            Log.d(LOG_TAG," setPaused("+paused+")");
+        }
         videoView.setPausedModifier(paused);
     }
 
@@ -125,6 +138,9 @@ public class ReactVideoViewManager extends SimpleViewManager<ReactVideoView> {
 
     @ReactProp(name = PROP_SEEK)
     public void setSeek(final ReactVideoView videoView, final float seek) {
+        if(DEBUG_PLAYBACK){
+            Log.d(LOG_TAG," setSeek("+seek+")");
+        }
         videoView.seekTo(Math.round(seek * 1000.0f));
     }
 
