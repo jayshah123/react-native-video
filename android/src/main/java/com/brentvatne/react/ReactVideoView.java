@@ -359,11 +359,7 @@ public class ReactVideoView extends ScalableExoVideoView implements LifecycleEve
 
     public void setRateModifier(final float rate) {
         mRate = rate;
-        Log.e(ReactVideoViewManager.REACT_CLASS, "Setting playback rate is not yet supported on Android");
-
-//        if (mMediaPlayerValid) {
-//            // TODO: Implement this.
-//        }
+        setPlaybackSpeed(rate);
     }
 
     public void applyModifiers() {
@@ -371,7 +367,7 @@ public class ReactVideoView extends ScalableExoVideoView implements LifecycleEve
         setRepeatModifier(mRepeat);
         setPausedModifier(mPaused);
         setMutedModifier(mMuted);
-//        setRateModifier(mRate);
+        setRateModifier(mRate);
     }
 
     public void setPlayInBackground(final boolean playInBackground) {
